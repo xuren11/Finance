@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manager.model.dao.FinanceProductDao">
+    <resultMap id="BaseResultMap" type="com.manager.model.entity.FinanceProduct">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="threshold_amount" jdbcType="DECIMAL" property="thresholdAmount"/>
+        <result column="step_amount" jdbcType="DECIMAL" property="stepAmount"/>
+        <result column="lock_term" jdbcType="INTEGER" property="lockTerm"/>
+        <result column="reward_rate" jdbcType="DECIMAL" property="rewardRate"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+    </resultMap>
+
+    <resultMap id="FinanceProductResultMap" type="com.manager.model.bean.FinanceProductResultBean">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="threshold_amount" jdbcType="DECIMAL" property="thresholdAmount"/>
+        <result column="step_amount" jdbcType="DECIMAL" property="stepAmount"/>
+        <result column="lock_term" jdbcType="INTEGER" property="lockTerm"/>
+        <result column="reward_rate" jdbcType="DECIMAL" property="rewardRate"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+    </resultMap>
+
+    <sql id="sql_where_finance_product">
+        <where>
+            <trim prefix="(" prefixOverrides="and" suffix=")">
+                <if test="ids != null">
+                    fproduct.id in
+                    <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                        #{id,jdbcType=INTEGER}
+                    </foreach>
+                </if>
+
+                <if test="name !=null">
+                    and fproduct.name like CONCAT('%',#{name},'%')
+                </if>
+                <if test="createUser !=null">
+                    and fproduct.create_user like CONCAT('%',#{createUser},'%')
+                </if>
+                <if test="updateUser !=null">
+                    and fproduct.update_user like CONCAT('%',#{updateUser},'%')
+                </if>
+
+                <if test="status !=null">
+                    and fproduct.status like CONCAT('%',#{status},'%')
+                </if>
+
+                <!-- 时间区间的比较 -->
+                <if test="createTimeBegin !=null">
+                    and DATE(fproduct.create_time) <![CDATA[>=]]> DATE(#{createTimeBegin,jdbcType=TIMESTAMP})
+                </if>
+                <if test="createTimeEnd !=null">
+                    and DATE(fproduct.create_time) <![CDATA[<=]]> DATE(#{createTimeEnd,jdbcType=TIMESTAMP})
+                </if>
+
+                <if test="updateTimeBegin !=null">
+                    and DATE(fproduct.update_time) <![CDATA[>=]]> DATE(#{updateTimeBegin,jdbcType=TIMESTAMP})
+                </if>
+                <if test="updateTimeEnd !=null">
+                    and DATE(fproduct.update_time) <![CDATA[<=]]> DATE(#{updateTimeEnd,jdbcType=TIMESTAMP})
+                </if>
+
+                <if test="thresholdAmountMin !=null">
+                    and fproduct.threshold_amount <![CDATA[>=]]> #{thresholdAmountMin,jdbcType=DECIMAL}
+                </if>
+                <if test="thresholdAmountMin !=null">
+                    and fproduct.threshold_amount <![CDATA[>=]]> #{thresholdAmountMax,jdbcType=DECIMAL}
+                </if>
+
+                <if test="stepAmountMin !=null">
+                    and fproduct.step_amount <![CDATA[>=]]> #{stepAmountMin,jdbcType=DECIMAL}
+                </if>
+                <if test="stepAmountMax !=null">
+                    and fproduct.step_amount <![CDATA[>=]]> #{stepAmountMax,jdbcType=DECIMAL}
+                </if>
+
+                <if test="rewardRateMin !=null">
+                    and fproduct.reward_rate <![CDATA[>=]]> #{rewardRateMin,jdbcType=DECIMAL}
+                </if>
+                <if test="rewardRateMin !=null">
+                    and fproduct.reward_rate <![CDATA[>=]]> #{rewardRateMax,jdbcType=DECIMAL}
+                </if>
+
+                <if test="lockTermMin !=null">
+                    and fproduct.lock_term <![CDATA[>=]]> #{lockTermMin,jdbcType=INTEGER}
+                </if>
+                <if test="lockTermMax !=null">
+                    and fproduct.lock_term <![CDATA[>=]]> #{lockTermMax,jdbcType=INTEGER}
+                </if>
+
+            </trim>
+        </where>
+
+    </sql>
+
+    <insert id="insertProduct" parameterType="com.manager.model.entity.FinanceProduct">
+        <!--        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">-->
+        <!--            SELECT LAST_INSERT_ID()-->
+        <!--        </selectKey>-->
+        <!--插入数据后返回主键  好像这个没啥卵用-->
+        insert into finance_product
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="thresholdAmount != null">
+                threshold_amount,
+            </if>
+            <if test="stepAmount != null">
+                step_amount,
+            </if>
+            <if test="lockTerm != null">
+                lock_term,
+            </if>
+            <if test="rewardRate != null">
+                reward_rate,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="thresholdAmount != null">
+                #{thresholdAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="stepAmount != null">
+                #{stepAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="lockTerm != null">
+                #{lockTerm,jdbcType=INTEGER},
+            </if>
+            <if test="rewardRate != null">
+                #{rewardRate,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateProduct" parameterType="com.manager.model.entity.FinanceProduct">
+        update finance_product
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="thresholdAmount != null">
+                threshold_amount = #{thresholdAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="stepAmount != null">
+                step_amount = #{stepAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="lockTerm != null">
+                lock_term = #{lockTerm,jdbcType=INTEGER},
+            </if>
+            <if test="rewardRate != null">
+                reward_rate = #{rewardRate,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteProducts" parameterType="com.manager.model.bean.DeleteQueryBean">
+        delete from finance_product
+        <where>
+            <trim prefix="(" prefixOverrides="and" suffix=")">
+                <if test="ids != null">
+                 id in
+                    <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                #{id,jdbcType=INTEGER}
+                 </foreach>
+                </if>
+            </trim>
+        </where>
+    </delete>
+
+    <select id="selectFinanceProduct" parameterType="com.manager.model.bean.FinanceProductQueryBean"
+            resultMap="FinanceProductResultMap">
+        select * from finance_product fproduct
+        <include refid="sql_where_finance_product"/>
+        order by fproduct.id ASC
+        limit #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER};
+    </select>
+
+    <select id="selectOneProduct" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select * from finance_product fproduct
+        where fproduct.id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="countRecordNum" parameterType="com.manager.model.bean.FinanceProductQueryBean"
+            resultType="java.lang.Integer">
+        select count(id) from finance_product fproduct
+        <include refid="sql_where_finance_product"></include>
+    </select>
+
+</mapper>

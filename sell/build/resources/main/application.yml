@@ -1,0 +1,12 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss.SSS
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/?user=root&password=123456&useUnicode=true&characterEncoding=utf-8&useSSL=false
+
+server:
+  servlet:
+    context-path: /sell
+  port: 8088
+

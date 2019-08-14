@@ -1,0 +1,2 @@
+# 自动扫描该类  (若不是用该配置，则需要将自定的 swagger注解加到启动类上）
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.xuren.swagger.SwaggerFactoryBean

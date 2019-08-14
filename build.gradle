@@ -1,0 +1,31 @@
+
+group 'com.xuren'
+version '1.0-SNAPSHOT'
+
+
+
+apply from: "$rootDir/dependencies.gradle"
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'war'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        compile libs.common
+        testCompile libs.test
+    }
+
+    [compileJava,compileTestJava]*.options*.encoding = 'utf-8'
+}
+
+
+
+
