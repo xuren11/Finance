@@ -50,21 +50,21 @@ public class FinanceProductQueryBean extends FinanceProduct implements Serializa
     @ApiModelProperty("产品收益率最小值")
     private BigDecimal rewardRateMin;
 
-    @ApiModelProperty("产品收益率最小值")
+    @ApiModelProperty("产品收益率最大值")
     private BigDecimal rewardRateMax;
-
-    @ApiModelProperty("产品状态")
-    private String status;
-
-    @Override
-    public String getStatus() {
-        return status;
-    }
-
-    @Override
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//
+//    @ApiModelProperty("产品状态")
+//    private String status;
+//
+//    @Override
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    @Override
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 
     @ApiModelProperty("查询起始地址,默认第一页")
     private Integer pageNum = 1;

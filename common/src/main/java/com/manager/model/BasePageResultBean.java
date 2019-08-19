@@ -54,4 +54,10 @@ public class BasePageResultBean<T> implements Serializable {
     public void setEveryPageRecordNum(Integer everyPageRecordNum) {
         this.everyPageRecordNum = everyPageRecordNum;
     }
+
+//    @Override
+//    public String toString() {
+//        return "当前页数为：" + this.getPageNum() + result.get(0).toString();
+//    }
+
 }

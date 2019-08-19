@@ -40,7 +40,9 @@
                         #{id,jdbcType=INTEGER}
                     </foreach>
                 </if>
-
+                <if test="id != null">
+                    and fproduct.id = #{id,jdbcType=INTEGER}
+                </if>
                 <if test="name !=null">
                     and fproduct.name like CONCAT('%',#{name},'%')
                 </if>
@@ -229,6 +231,7 @@
 
     <delete id="deleteProducts" parameterType="com.manager.model.bean.DeleteQueryBean">
         delete from finance_product
+        <!--此处的delete 语句真是个巨坑啊！  如果要在DELETE中使用别名，请将别名加在 delete 与 from之间，否则必定报错！ -->
         <where>
             <trim prefix="(" prefixOverrides="and" suffix=")">
                 <if test="ids != null">

@@ -40,7 +40,9 @@
                         #{id,jdbcType=INTEGER}
                     </foreach>
                 </if>
-
+                <if test="id != null">
+                    and fproduct.id = #{id,jdbcType=INTEGER}
+                </if>
                 <if test="name !=null">
                     and fproduct.name like CONCAT('%',#{name},'%')
                 </if>

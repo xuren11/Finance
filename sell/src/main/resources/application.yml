@@ -3,10 +3,22 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss.SSS
     time-zone: GMT+8
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/?user=root&password=123456&useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://127.0.0.1:3306/?user=root&password=123456&useUnicode=true&characterEncoding=utf-8&useSSL=false
+     url: jdbc:mysql://120.25.166.163:3306/?user=root&password=Xurenlovecyt!&useUnicode=true&characterEncoding=utf-8&useSSL=false
 
 server:
   servlet:
-    context-path: /sell
-  port: 8088
+    context-path: /seller
+  port: 8082
+
+logging:
+  level:
+    com.github.briandilley.jsonrpc4j: debug
+  #  com.googlecode.jsonrpc4j: debug   # 配置日志级别(Debug模式启动有效)，可借于此观察到配置扫描过程
+
+
+# 注册提供rpc服务的服务端的地址
+rpc.manager.url: http://127.0.0.1:8081/manager
+# 表面上 客户端是点发送的json个数据去进行请求的，但底层实际上还是http请求
+
 

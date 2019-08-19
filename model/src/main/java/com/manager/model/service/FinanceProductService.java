@@ -9,6 +9,7 @@ import com.manager.model.bean.FinanceProductResultBean;
 import com.manager.model.dao.FinanceProductDao;
 import com.manager.model.entity.FinanceProduct;
 import com.manager.model.mapper.FinanceProductMapper;
+import com.manager.utils.CglibBeanCopierUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.reflections.scanners.FieldAnnotationsScanner;
 import org.slf4j.Logger;
@@ -33,7 +34,6 @@ public class FinanceProductService {
 
 
     public FinanceProduct addFinanceProduct(FinanceProduct p) {
-
         System.out.println("financeProductDao的值为" + financeProductDao.toString());
         checkProduct(p);
         setDefault(p);
@@ -114,6 +114,22 @@ public class FinanceProductService {
     public Integer getTotalRecordNums(FinanceProductQueryBean queryBean) {
         return financeProductDao.countRecordNum(queryBean);
     }
+
+
+    public FinanceProductResultBean getOneFinanceProduct(Integer id){
+        FinanceProduct product = financeProductDao.selectOneProduct(id);
+        if(null == product){
+            throw  new FinanceException("数据库中没有该产品，请传入合适的参数");
+        }
+        FinanceProductResultBean resultBean = new FinanceProductResultBean();
+        CglibBeanCopierUtils.copyProperties(product,resultBean);
+        if (StringUtils.isNotBlank(product.getStatus())) {
+            resultBean.setStatusDesc(ProductStatus.getDescByCode(resultBean.getStatus()));
+        }
+       return resultBean;
+    }
+
+
 
     public FinanceProduct updateFinanceProduct(FinanceProduct product) {
         if (null == product.getId()) {

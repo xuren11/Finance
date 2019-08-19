@@ -4,7 +4,8 @@ spring:
     time-zone: GMT+8
   datasource:
     driverClass: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/?user=root&password=123456&useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://127.0.0.1:3306/?user=root&password=123456&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://120.25.166.163:3306/?user=root&password=Xurenlovecyt!&useUnicode=true&characterEncoding=utf-8&useSSL=false
     jpa:
       show-sql: true
 server:
@@ -16,7 +17,8 @@ server:
 # 日志配置
 logging:
   level:
-    com.googlecode.jsonrpc4j: debug
+    com.github.briandilley.jsonrpc4j: debug
+
 
 
 #mapper-locations:
@@ -26,4 +28,4 @@ logging:
 # mybatis 配置
 mybatis:
   configuration:
-   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 显示执行的mysql语句，便于sql语句的错误检查

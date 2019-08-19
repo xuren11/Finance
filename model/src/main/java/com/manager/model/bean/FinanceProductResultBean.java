@@ -17,4 +17,11 @@ public class FinanceProductResultBean extends FinanceProduct {
     public void setStatusDesc(String statusDesc) {
         this.statusDesc = statusDesc;
     }
+
+    @Override
+    public String toString() {
+        return "FinanceProductResultBean{" +
+                "statusDesc='" + statusDesc + '\'' +
+                '}';
+    }
 }

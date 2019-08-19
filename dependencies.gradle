@@ -15,13 +15,18 @@ ext{
                     //springboot 监控
                      "org.springframework.boot:spring-boot-starter-actuator:${version.springBootVersion}",
                     //springboot热部署
-                    "org.springframework.boot:spring-boot-devtools:1.5.9.RELEASE"
+                    "org.springframework.boot:spring-boot-devtools:1.5.9.RELEASE",
+
+                    "org.springframework.boot:spring-boot-gradle-plugin:${version.springBootVersion}"
             ],
 //            mysql : [
 //                    
 //            ],
             jsonrpc:[
-                    "com.imooc.jsonrpc4j:jsonrpc4j:1.5.1"
+//                   https://mvnrepository.com/artifact/com.github.briandilley.jsonrpc4j/jsonrpc4j
+//                   compile group: 'com.github.briandilley.jsonrpc4j', name: 'jsonrpc4j', version: '1.5.3'
+                    //rpc服务 jar包
+                    "com.github.briandilley.jsonrpc4j:jsonrpc4j:1.5.3"
             ],
             swagger: [
                     "io.springfox:springfox-swagger2:2.7.0", //

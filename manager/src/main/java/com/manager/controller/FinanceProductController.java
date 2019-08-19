@@ -7,13 +7,11 @@ import com.manager.model.bean.FinanceProductResultBean;
 import com.manager.model.entity.FinanceProduct;
 import com.manager.model.service.FinanceProductService;
 import io.swagger.annotations.Api;
-import org.reflections.scanners.FieldAnnotationsScanner;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @Api(value = "金融产品管理ontroller--mybatis",description = "",tags = "")
 @RestController
